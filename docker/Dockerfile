@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
 RUN apt-get update --fix-missing
-RUN apt-get -y install libtiff-dev libjpeg-dev gcc make
+RUN apt-get -y install libtiff-dev libjpeg-dev imagemagick gcc make
 RUN apt-get install -y hdf5-tools hdf5-helpers
 RUN apt-get install -y screen time
 RUN apt-get install -y python-is-python3
