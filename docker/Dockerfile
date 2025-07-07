@@ -9,9 +9,9 @@ RUN apt-get install -y python3-pip
 
 RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
     cd stiff && \
-		./configure --prefix=/usr/local && \
-		make && \
-		make install
+    ./configure --prefix=/usr/local && \
+    make && \
+    make install
 
 # Add $SPTUSER as user and create groups wheel and spt, we will use
 # uid 47448 (felipe) on the ICC
