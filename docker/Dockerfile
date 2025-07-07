@@ -1,17 +1,14 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 RUN apt-get update --fix-missing
-RUN apt-get -y install libtiff-dev libjpeg-dev imagemagick gcc make
-RUN apt-get install -y hdf5-tools hdf5-helpers
-RUN apt-get install -y screen time
+RUN apt-get -y install libtiff-dev libjpeg-dev imagemagick gcc make screen time git
 RUN apt-get install -y python-is-python3
-RUN apt-get install -y python3-healpy python3-fitsio python3-pandas python3-yaml python3-magic python3-sphinx python3-matplotlib
+RUN apt-get install -y python3-fitsio python3-pandas python3-yaml python3-magic python3-matplotlib
 # This trick install distutils under the hood
 RUN apt-get install -y python3-pip
 
-COPY stiff-2.7.0.tar.gz .
-RUN tar xzf stiff-2.7.0.tar.gz && \
-    cd stiff-2.7.0 && \
+RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
+    cd stiff && \
 		./configure --prefix=/usr/local && \
 		make && \
 		make install
