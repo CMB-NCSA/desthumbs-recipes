@@ -29,6 +29,13 @@ RUN mkdir -p /data/spt3g && \
     chgrp spt /data/spt3g && \
     chmod g+wrx /data/spt3g
 
+#Add svcdesdatabot to mount taiga des_archive
+RUN useradd -ms /bin/bash -u 68586 svcdesdatabot && \
+    addgroup -gid 2402 des_dm
+
+RUN mkdir -p /des_archive && \
+    chgrp des_dm /des_archive
+
 USER ${SPTUSER}
 WORKDIR /home/${SPTUSER}
 
