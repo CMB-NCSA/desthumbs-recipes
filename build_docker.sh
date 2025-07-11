@@ -3,7 +3,7 @@
 export IMAGE=des_cutter
 export SPTUSER=$USER
 #export TAG=`date +"%Y%B%d"`
-export DES_CUTTER_VERSION=0.1
+export DES_CUTTER_VERSION=1.0.0
 export TAG=${DES_CUTTER_VERSION}
 
 # Check for optional --no-cache argument
