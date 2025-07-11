@@ -3,7 +3,7 @@ FROM ubuntu:24.04
 RUN apt-get update
 RUN apt-get update --fix-missing
 RUN apt-get install -y libtiff-dev libjpeg-dev imagemagick gcc git
-RUN apt-get install -y python-is-python3 python3-fitsio python3-pandas python3-yaml python3-magic python3-matplotlib python3-oracledb python3-pip
+RUN apt-get install -y python-is-python3 python3-fitsio python3-astropy python3-pandas python3-yaml python3-magic python3-matplotlib python3-oracledb python3-pip
 RUN pip install duckdb --prefix=/usr --no-deps --break-system-packages
 
 RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
@@ -11,6 +11,13 @@ RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
     ./configure --prefix=/usr/local && \
     make && \
     make install
+
+# Install des_cutter
+RUN git clone https://github.com/CMB-NCSA/des_cutter &&\
+    cd des_cutter &&\
+    python -m pip install . --prefix=/usr --no-deps --break-system-packages &&\
+    cd .. &&\
+    rm -rf des_cutter
 
 # Add $SPTUSER as user and create groups wheel and spt, we will use
 # uid 47448 (felipe) on the ICC
@@ -23,10 +30,10 @@ RUN useradd -ms /bin/bash -u 47448 $SPTUSER && \
 RUN usermod -aG wheel $SPTUSER && \
     usermod -aG spt $SPTUSER
 
-# Make mount directory to mirror /data/spt3g
-RUN mkdir -p /data/spt3g && \
-    chgrp spt /data/spt3g && \
-    chmod g+wrx /data/spt3g
+# Make mount directory to mirror /data/des
+RUN mkdir -p /data/des && \
+    chgrp spt /data/des && \
+    chmod g+wrx /data/des
 
 #Add svcdesdatabot to mount taiga des_archive
 RUN useradd -ms /bin/bash -u 68586 svcdesdatabot && \
