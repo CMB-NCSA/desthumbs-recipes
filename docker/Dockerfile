@@ -54,7 +54,7 @@ ENV SHELL /bin/bash
 
 # Set environment in the container
 ENV PRODUCT_DIR="/opt/des_cutter"
-ENV SPT3G_CUTTER_DIR=${PRODUCT_DIR}
+ENV DES_CUTTER_DIR=${PRODUCT_DIR}
 ENV PYTHONPATH=${PRODUCT_DIR}/python:${PYTHONPATH}
 ENV PATH=${PRODUCT_DIR}/bin:${PATH}
 
