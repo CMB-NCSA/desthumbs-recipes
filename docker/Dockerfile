@@ -13,9 +13,12 @@ RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
     make install
 
 # Install des_cutter
-RUN git clone https://github.com/CMB-NCSA/des_cutter &&\
+ARG DES_CUTTER_VERSION
+RUN mkdir -p /opt/des_cutter/python && \
+    git clone https://github.com/CMB-NCSA/des_cutter -b $DES_CUTTER_VERSION  &&\
     cd des_cutter &&\
-    python -m pip install . --prefix=/usr --no-deps --break-system-packages &&\
+    pip install . --target=/opt/des_cutter --no-deps --break-system-packages &&\
+    mv /opt/des_cutter/des_cutter /opt/des_cutter/python &&\
     cd .. &&\
     rm -rf des_cutter
 
@@ -48,3 +51,12 @@ WORKDIR /home/${SPTUSER}
 ENV USER $SPTUSER
 ENV HOME /home/$SPTUSER
 ENV SHELL /bin/bash
+
+# Set environment in the container
+ENV PRODUCT_DIR="/opt/des_cutter"
+ENV SPT3G_CUTTER_DIR=${PRODUCT_DIR}
+ENV PYTHONPATH=${PRODUCT_DIR}/python:${PYTHONPATH}
+ENV PATH=${PRODUCT_DIR}/bin:${PATH}
+
+# Not really needed
+# RUN echo "source /opt/des_cutter/setpath.sh /opt/des_cutter" >> $HOME/.bashrc
