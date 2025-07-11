@@ -1,11 +1,10 @@
 FROM ubuntu:24.04
 
+RUN apt-get update
 RUN apt-get update --fix-missing
-RUN apt-get -y install libtiff-dev libjpeg-dev imagemagick gcc make screen time git
-RUN apt-get install -y python-is-python3
-RUN apt-get install -y python3-fitsio python3-pandas python3-yaml python3-magic python3-matplotlib
-# This trick install distutils under the hood
-RUN apt-get install -y python3-pip
+RUN apt-get install -y libtiff-dev libjpeg-dev imagemagick gcc git
+RUN apt-get install -y python-is-python3 python3-fitsio python3-pandas python3-yaml python3-magic python3-matplotlib python3-oracledb python3-pip
+RUN pip install duckdb --prefix=/usr --no-deps --break-system-packages
 
 RUN git clone https://github.com/CMB-NCSA/stiff.git  && \
     cd stiff && \

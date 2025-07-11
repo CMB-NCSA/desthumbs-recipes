@@ -3,11 +3,11 @@
 export IMAGE=desthumbs
 export SPTUSER=$USER
 #export TAG=`date +"%Y%B%d"`
-export DESTHUMBS_VERSION=0.1
-export TAG=${DESTHUMBS_VERSION}
+export DES_CUTTER_VERSION=0.1
+export TAG=${DES_CUTTER_VERSION}
 docker build -f docker/Dockerfile \
        -t menanteau/$IMAGE:$TAG \
-       --build-arg DESTHUMBS_VERSION \
+       --build-arg DES_CUTTER_VERSION \
        --build-arg SPTUSER \
        --rm=true .
 
